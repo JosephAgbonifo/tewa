@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+
+@theme inline {
+  --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+
+  @keyframes scroll {
+    to {
+      transform: translate(calc(-50% - 0.5rem));
+    }
+  }
+  --color-purple: #4B2E83;
+  --color-gold: #C6A667;
+  --color-gold-dark: #A8894F;
+  --color-white: #FFFFFF;
+  --color-tewa-black: #0C0C0C;
+  --color-cream: #FAF6EF;
+  --color-text-dark: #333333;
+  --font-playfair: var(--font-playfair);
+  --font-lora: var(--font-lora);
+  --font-inter:var(--font-inter);
+}
+
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.25s ease-out;
+}
