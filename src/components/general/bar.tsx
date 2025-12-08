@@ -8,18 +8,17 @@ export default function HeaderBar() {
   const [open, setOpen] = useState(false);
 
   const links = [
-    { name: "Business", href: "/business" },
-    { name: "Events", href: "/events" },
-    { name: "International", href: "/business" },
-    { name: "Livestyle", href: "/business" },
-    { name: "Money", href: "/business" },
-    { name: "Innovations", href: "/business" },
-    { name: "Subscribe", href: "/business" },
+    { name: "Business", href: "/categories/business" },
+    { name: "Events", href: "/categories/events" },
+    { name: "International", href: "/categories/international" },
+    { name: "Livestyle", href: "/categories/livestyle" },
+    { name: "Money", href: "/categories/money" },
+    { name: "Innovations", href: "/categories/innovations" },
+    { name: "Subscribe", href: "/categories/business" },
   ];
 
   return (
     <div className="pt-20">
-
       {/* DESKTOP MENU */}
       <div className="px-10 gap-4 py-3 text-sm bg-tewa-black text-white font-inter items-center justify-center hidden md:flex">
         {links.map((l) => (
@@ -31,8 +30,6 @@ export default function HeaderBar() {
 
       {/* MOBILE HEADER */}
       <div className="bg-tewa-black text-white px-6 py-3 flex items-center justify-between md:hidden">
-        
-
         {/* Hamburger */}
         <button onClick={() => setOpen(!open)}>
           {open ? <X size={28} /> : <Menu size={28} />}
