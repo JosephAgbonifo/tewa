@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --animate-scroll: scroll var(--animation-duration, 40s)
+    var(--animation-direction, forwards) linear infinite;
+
+  @keyframes scroll {
+    to {
+      transform: translate(calc(-50% - 0.5rem));
+    }
+  }
+  --color-purple: #4b2e83;
+  --color-gold: #c6a667;
+  --color-gold-dark: #a8894f;
+  --color-white: #ffffff;
+  --color-tewa-black: #0c0c0c;
+  --color-cream: #faf6ef;
+  --color-text-dark: #333333;
+  --font-playfair: var(--font-playfair);
+  --font-lora: var(--font-lora);
+  --font-inter: var(--font-inter);
+}
+
+body {
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.25s ease-out;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.ticker-group {
+  animation: ticker-scroll linear infinite;
+}
+
+.ticker:hover .ticker-group {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-group {
+    animation: none;
+  }
+}
+
+@keyframes featured-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
