@@ -60,14 +60,16 @@ export interface InterviewChapter {
   title: string;
   blurb: string;
   starred: boolean;
+  short?: boolean;
+  cheer?: string | null;
   questions: InterviewQuestion[];
 }
 
 export interface InterviewSignoff {
-  full_name?: string | null;
-  title_org?: string | null;
+  cover_name?: string | null;
   signature?: string | null;
   contact?: string | null;
+  date?: string | null;
   consents?: boolean[];
 }
 
@@ -77,10 +79,16 @@ export interface InterviewData {
   min_photos?: number;
   max_photos?: number;
   name: string;
-  intro?: string;
-  closing?: string;
+  welcome?: {
+    lede: string;
+    minutes: string;
+    greeting: string;
+    letter: string;
+    steps: string[];
+  };
+  email_extras?: string[];
+  editor_email?: string;
   declarations?: string[];
-  photo_question?: number;
   chapters?: InterviewChapter[];
   answers?: Record<string, string>;
   signoff?: InterviewSignoff;

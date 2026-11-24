@@ -303,13 +303,13 @@ export default function ReviewPage() {
               <label className="text-sm font-semibold">
                 Tagline (shown on the card)
               </label>
-              {answers["11"] && (
+              {answers["4"] && (
                 <button
                   type="button"
-                  onClick={() => setTagline(answers["11"].slice(0, 500))}
+                  onClick={() => setTagline(answers["4"].slice(0, 500))}
                   className="text-xs font-semibold text-purple hover:text-gold"
                 >
-                  USE THEIR Q11 ANSWER
+                  USE THEIR Q4 ANSWER
                 </button>
               )}
             </div>
@@ -345,6 +345,11 @@ export default function ReviewPage() {
               className={inputCls}
             />
           </div>
+          {answers["2"] && (
+            <p className="mt-1.5 text-xs text-tewa-black/50">
+              They wrote (Q2): {answers["2"]}
+            </p>
+          )}
         </div>
       </section>
 
@@ -479,15 +484,15 @@ export default function ReviewPage() {
         <dl className="mt-4 grid max-w-3xl gap-3 text-sm sm:grid-cols-2">
           <div>
             <dt className="text-xs font-semibold text-tewa-black/50">
-              FULL NAME
+              PREFERRED COVER NAME / TITLE
             </dt>
-            <dd>{signoff.full_name || "—"}</dd>
+            <dd>{signoff.cover_name || "—"}</dd>
           </div>
           <div>
             <dt className="text-xs font-semibold text-tewa-black/50">
-              TITLE AND ORGANIZATION
+              CONTACT FOR FACT-CHECKING
             </dt>
-            <dd>{signoff.title_org || "—"}</dd>
+            <dd>{signoff.contact || "—"}</dd>
           </div>
           <div>
             <dt className="text-xs font-semibold text-tewa-black/50">
@@ -497,15 +502,20 @@ export default function ReviewPage() {
           </div>
           <div>
             <dt className="text-xs font-semibold text-tewa-black/50">
-              EMAIL AND PHONE
+              DATE SIGNED
             </dt>
-            <dd>{signoff.contact || "—"}</dd>
+            <dd>{signoff.date || "—"}</dd>
           </div>
           <div>
             <dt className="text-xs font-semibold text-tewa-black/50">
-              DECLARATIONS TICKED
+              PUBLICATION CONSENT
             </dt>
-            <dd>{(signoff.consents ?? []).filter(Boolean).length} of 6</dd>
+            <dd>
+              {(signoff.consents ?? []).length > 0 &&
+              (signoff.consents ?? []).every(Boolean)
+                ? "Given"
+                : "Not given"}
+            </dd>
           </div>
           <div>
             <dt className="text-xs font-semibold text-tewa-black/50">

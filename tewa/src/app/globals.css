@@ -9,6 +9,37 @@
   --animate-scroll: scroll var(--animation-duration, 40s)
     var(--animation-direction, forwards) linear infinite;
 
+  --color-iv-purple: #4b0b45;
+  --color-iv-purple-2: #5e1556;
+  --color-iv-orchid: #7a1f6e;
+  --color-iv-gold: #e3a82b;
+  --color-iv-gold-d: #8a6a1f;
+  --color-iv-champ: #f7ebd0;
+  --color-iv-ivory: #fffaf2;
+  --color-iv-line: #e6d3a8;
+  --font-iv-serif: var(--font-bodoni), "Bodoni MT", Didot, Georgia, serif;
+  --font-iv-sans: var(--font-montserrat), "Century Gothic", Arial, sans-serif;
+
+  @keyframes iv-rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .iv-rise {
+    animation: iv-rise 0.35s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .iv-rise {
+      animation: none;
+    }
+  }
   @keyframes scroll {
     to {
       transform: translate(calc(-50% - 0.5rem));

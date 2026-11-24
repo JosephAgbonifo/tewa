@@ -12,7 +12,7 @@ function buildDraft(p: DraftPayload): FormData {
   Object.entries(p.answers).forEach(([n, v]) => {
     if (v.trim()) fd.append(`answers[${n}]`, v);
   });
-  (["full_name", "title_org", "signature", "contact"] as const).forEach((k) => {
+  (["cover_name", "signature", "contact", "date"] as const).forEach((k) => {
     const v = p.signoff[k];
     if (v) fd.append(`signoff[${k}]`, v);
   });
