@@ -20,26 +20,6 @@
   --font-iv-serif: var(--font-bodoni), "Bodoni MT", Didot, Georgia, serif;
   --font-iv-sans: var(--font-montserrat), "Century Gothic", Arial, sans-serif;
 
-  @keyframes iv-rise {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  .iv-rise {
-    animation: iv-rise 0.35s ease;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .iv-rise {
-      animation: none;
-    }
-  }
   @keyframes scroll {
     to {
       transform: translate(calc(-50% - 0.5rem));
@@ -106,5 +86,26 @@ body {
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes iv-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.iv-rise {
+  animation: iv-rise 0.35s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iv-rise {
+    animation: none;
   }
 }
