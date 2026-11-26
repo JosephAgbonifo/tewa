@@ -69,7 +69,6 @@ export default function InterviewForm() {
   const [data, setData] = useState<InterviewData | null>(null);
   const [loadError, setLoadError] = useState(false);
   const [screen, setScreen] = useState(0); // 0 welcome, 1..N chapters, N+1 finish
-  const [showRequired, setShowRequired] = useState(false);
 
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [signoff, setSignoff] = useState<InterviewSignoff>({});
@@ -255,12 +254,6 @@ export default function InterviewForm() {
   const photosOk = images.length >= minPhotos;
   const firstName = (data.name ?? "").trim().split(/\s+/)[0] || "You";
 
-  const firstMissing = chapters.flatMap((c, ci) =>
-    c.questions
-      .filter((q) => q.required && !(answers[q.n] ?? "").trim())
-      .map((q) => ({ n: q.n, screen: ci + 1 }))
-  )[0];
-
   const meterText =
     current === 0
       ? "YOUR STORY"
@@ -279,15 +272,6 @@ export default function InterviewForm() {
 
   const go = (n: number) => {
     const target = Math.max(0, Math.min(finishScreen, n));
-
-    // The essential question must be answered before moving past its chapter
-    if (firstMissing && target > firstMissing.screen) {
-      setShowRequired(true);
-      setScreen(firstMissing.screen);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-
     setScreen(target);
     try {
       localStorage.setItem(`tewa-interview-screen:${token}`, String(target));
@@ -300,12 +284,6 @@ export default function InterviewForm() {
   const handleSubmit = async () => {
     setSubmitError("");
 
-    if (firstMissing) {
-      setShowRequired(true);
-      setScreen(firstMissing.screen);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
     if (images.length < minPhotos) {
       setSubmitError(
         `Please upload at least ${minPhotos} photos (you have ${images.length}).`
@@ -495,15 +473,13 @@ export default function InterviewForm() {
                   {c.blurb}
                 </p>
                 <div className="mt-3 text-[11px] font-bold tracking-[0.16em] opacity-85">
-                  {c.starred ? "ESSENTIAL" : "OPTIONAL"} · {c.questions.length}{" "}
-                  QUESTIONS
+                  {c.questions.length} QUESTIONS
                 </div>
               </div>
 
               {c.questions.map((q) => {
                 const value = answers[q.n] ?? "";
                 const w = wordCount(value);
-                const missing = showRequired && q.required && !value.trim();
                 return (
                   <div key={q.n} className={cardCls}>
                     <label
@@ -511,17 +487,13 @@ export default function InterviewForm() {
                       className="mb-1 block font-iv-serif text-[21px] leading-[1.3]"
                     >
                       {q.text}
-                      {q.required && " *"}
                     </label>
                     <AutoTextarea
                       id={`q-${q.n}`}
                       rows={c.short ? 2 : 3}
                       value={value}
                       onChange={(e) => setAnswer(q.n, e.target.value)}
-                      aria-invalid={missing || undefined}
-                      className={`${inputCls} mt-2 resize-y overflow-hidden ${
-                        missing ? "border-red-500" : ""
-                      }`}
+                      className={`${inputCls} mt-2 resize-y overflow-hidden`}
                     />
                     <div
                       className="mt-1 text-right text-xs text-[#555]"
@@ -533,12 +505,6 @@ export default function InterviewForm() {
                           }`
                         : ""}
                     </div>
-                    {missing && (
-                      <p className="mt-1 text-sm font-semibold text-red-600">
-                        Please answer this first. It is the one essential
-                        question.
-                      </p>
-                    )}
                   </div>
                 );
               })}
